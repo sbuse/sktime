@@ -14,15 +14,12 @@ class ProphetPiecewiseLinearTrendForecaster(_ProphetAdapter):
     """
     Forecast time series data with a piecewise linear trend, fitted via prophet.
 
-    The forecaster uses Facebook's prophet algorithm [1]_ and extracts the piecewise
-    linear trend from it. Only hyper-parameters relevant for the trend modelling are
-    exposed via the constructor.
+    The forecaster uses Facebook's prophet algorithm [1]_ to compute a piecewise linear
+    trend. Only hyper-parameters relevant for the trend modelling are exposed
+    via the constructor.
 
-    Seasonalities are set to additive and "auto" detection in prophet,
-    which means that yearly, weekly and daily seasonality are automatically detected,
-    and included in the model if present, using prophet's default settings.
-
-    For more granular control of components or seasonality, use
+    Seasonalities are not included in the model which is different to the default
+    setting of prophet. For more granular control of components or seasonality, use
     ``sktime.forecasting.fbprophet.Prophet`` directly.
 
     Data can be passed in one of the sktime compatible formats,
@@ -99,9 +96,9 @@ class ProphetPiecewiseLinearTrendForecaster(_ProphetAdapter):
         self.changepoints = changepoints
         self.n_changepoints = n_changepoints
         self.changepoint_range = changepoint_range
-        self.yearly_seasonality = "auto"
-        self.weekly_seasonality = "auto"
-        self.daily_seasonality = "auto"
+        self.yearly_seasonality = False
+        self.weekly_seasonality = False
+        self.daily_seasonality = False
         self.holidays = None
         self.seasonality_mode = "additive"
         self.seasonality_prior_scale = 10.0
